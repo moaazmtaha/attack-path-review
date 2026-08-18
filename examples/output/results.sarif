@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/hybrid-lab.json"
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Critical attack path #1: remote-user -> helpdesk -> sso -> automation -> build -> prod (exposure 8.66, effort 15)."
+          },
+          "properties": {
+            "edges": [
+              "e01-reset",
+              "e03-session",
+              "e04-automation",
+              "e05-build",
+              "e06-prod"
+            ],
+            "effort": 15,
+            "exposure": 8.66,
+            "likelihood": 0.086625
+          },
+          "ruleId": "APR001"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/hybrid-lab.json"
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Critical attack path #2: remote-user -> helpdesk -> sso -> automation -> vault (exposure 7.43, effort 15)."
+          },
+          "properties": {
+            "edges": [
+              "e01-reset",
+              "e03-session",
+              "e04-automation",
+              "e07-vault"
+            ],
+            "effort": 15,
+            "exposure": 7.43,
+            "likelihood": 0.07425
+          },
+          "ruleId": "APR001"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/hybrid-lab.json"
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Critical attack path #3: remote-user -> helpdesk -> sso -> build -> prod (exposure 5.77, effort 15)."
+          },
+          "properties": {
+            "edges": [
+              "e01-reset",
+              "e03-session",
+              "e08-direct",
+              "e06-prod"
+            ],
+            "effort": 15,
+            "exposure": 5.77,
+            "likelihood": 0.05775
+          },
+          "ruleId": "APR001"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/hybrid-lab.json"
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Critical attack path #4: support-vendor -> helpdesk -> sso -> automation -> build -> prod (exposure 5.51, effort 16)."
+          },
+          "properties": {
+            "edges": [
+              "e02-vendor",
+              "e03-session",
+              "e04-automation",
+              "e05-build",
+              "e06-prod"
+            ],
+            "effort": 16,
+            "exposure": 5.51,
+            "likelihood": 0.055125
+          },
+          "ruleId": "APR001"
+        },
+        {
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/hybrid-lab.json"
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Edge e03-session is part of the minimum entry-to-crown-jewel cut."
+          },
+          "ruleId": "APR002"
+        }
+      ],
+      "tool": {
+        "driver": {
+          "informationUri": "https://github.com/moaazmtaha/attack-path-review",
+          "name": "attack-path-review",
+          "rules": [
+            {
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "id": "APR001",
+              "name": "critical-attack-path",
+              "shortDescription": {
+                "text": "A bounded path exceeds the configured exposure threshold."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "id": "APR002",
+              "name": "minimum-cut-edge",
+              "shortDescription": {
+                "text": "An edge belongs to the minimum global entry-to-target cut."
+              }
+            }
+          ],
+          "semanticVersion": "0.1.0"
+        }
+      }
+    }
+  ],
+  "version": "2.1.0"
+}

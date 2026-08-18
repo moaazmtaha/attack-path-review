@@ -1,0 +1,21 @@
+digraph attack_path_review {
+  rankdir=LR;
+  graph [bgcolor=transparent];
+  "automation" [label="Automation account", shape=ellipse];
+  "build" [label="Build service", shape=ellipse];
+  "helpdesk" [label="Help desk", shape=ellipse];
+  "prod" [label="Production control plane", shape=doubleoctagon];
+  "remote-user" [label="Remote user", shape=box];
+  "sso" [label="SSO tenant", shape=ellipse];
+  "support-vendor" [label="Support vendor", shape=box];
+  "vault" [label="Secrets vault", shape=doubleoctagon];
+  "remote-user" -> "helpdesk" [label="password reset", color="#c47b20", penwidth=2];
+  "support-vendor" -> "helpdesk" [label="delegated support", color="#c47b20", penwidth=2];
+  "helpdesk" -> "sso" [label="session recovery", color="#b5412e", penwidth=3];
+  "sso" -> "automation" [label="workload administration", color="#c47b20", penwidth=2];
+  "automation" -> "build" [label="pipeline token", color="#c47b20", penwidth=2];
+  "build" -> "prod" [label="deployment role", color="#c47b20", penwidth=2];
+  "automation" -> "vault" [label="secret read policy", color="#c47b20", penwidth=2];
+  "sso" -> "build" [label="maintainer group", color="#c47b20", penwidth=2];
+  "build" -> "automation" [label="job callback"];
+}

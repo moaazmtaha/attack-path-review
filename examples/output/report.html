@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hybrid identity lab — attack-path review</title>
+  <style>
+    :root { color-scheme: light dark; --ink:#17212b; --paper:#f6f4ee; --line:#c9c4b8; --accent:#b5412e; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:15px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    main { width:min(1100px, calc(100% - 32px)); margin:40px auto 80px; }
+    h1 { font:700 clamp(28px,5vw,54px)/1.05 Georgia,serif; margin:.2em 0; max-width:18ch; }
+    h2 { margin-top:42px; font-size:18px; }
+    .kicker { color:var(--accent); letter-spacing:.08em; text-transform:uppercase; }
+    .meta { color:#615e57; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:28px 0; }
+    .metric { border:1px solid var(--line); padding:16px; background:rgba(255,255,255,.3); }
+    .metric strong { display:block; font:700 30px/1 Georgia,serif; margin-bottom:8px; }
+    .scroll { overflow:auto; border:1px solid var(--line); }
+    table { width:100%; border-collapse:collapse; min-width:720px; }
+    th,td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+    th { background:rgba(0,0,0,.05); }
+    code { color:var(--accent); }
+    footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); color:#615e57; }
+    @media (prefers-color-scheme:dark) { :root {--ink:#eee9dc;--paper:#141719;--line:#464a4d;--accent:#ff8e72;} .meta,footer {color:#b8b3aa;} }
+  </style>
+</head>
+<body><main>
+  <p class="kicker">Offline attack-path analysis</p>
+  <h1>Hybrid identity lab</h1>
+  <p class="meta">Source: examples\hybrid-lab.json · Generated 2026-08-18 18:37 UTC</p>
+  <section class="grid" aria-label="Analysis summary">
+    <div class="metric"><strong>8</strong>bounded paths</div>
+    <div class="metric"><strong>4</strong>critical paths</div>
+    <div class="metric"><strong>8.66</strong>maximum exposure</div>
+    <div class="metric"><strong>1</strong>minimum-cut edges</div>
+  </section>
+  <h2>Minimum edge cut</h2><p><code>e03-session</code></p>
+  <h2>Ranked paths</h2><div class="scroll"><table>
+    <thead><tr><th>#</th><th>Exposure</th><th>Likelihood</th><th>Effort</th><th>Route</th></tr></thead>
+    <tbody><tr><td>1</td><td>8.66</td><td>0.0866</td><td>15</td><td>Remote user → Help desk → SSO tenant → Automation account → Build service → Production control plane</td></tr><tr><td>2</td><td>7.43</td><td>0.0742</td><td>15</td><td>Remote user → Help desk → SSO tenant → Automation account → Secrets vault</td></tr><tr><td>3</td><td>5.77</td><td>0.0578</td><td>15</td><td>Remote user → Help desk → SSO tenant → Build service → Production control plane</td></tr><tr><td>4</td><td>5.51</td><td>0.0551</td><td>16</td><td>Support vendor → Help desk → SSO tenant → Automation account → Build service → Production control plane</td></tr><tr><td>5</td><td>4.72</td><td>0.0473</td><td>16</td><td>Support vendor → Help desk → SSO tenant → Automation account → Secrets vault</td></tr><tr><td>6</td><td>3.67</td><td>0.0367</td><td>16</td><td>Support vendor → Help desk → SSO tenant → Build service → Production control plane</td></tr><tr><td>7</td><td>1.49</td><td>0.0149</td><td>22</td><td>Remote user → Help desk → SSO tenant → Build service → Automation account → Secrets vault</td></tr><tr><td>8</td><td>0.95</td><td>0.0095</td><td>23</td><td>Support vendor → Help desk → SSO tenant → Build service → Automation account → Secrets vault</td></tr></tbody>
+  </table></div>
+  <h2>Single-edge mitigation analysis</h2><div class="scroll"><table>
+    <thead><tr><th>Edge</th><th>Relationship</th><th>Paths removed</th><th>Paths left</th><th>Exposure reduced</th></tr></thead>
+    <tbody><tr><td><code>e03-session</code></td><td>session recovery</td><td>8</td><td>0</td><td>38.20</td></tr><tr><td><code>e04-automation</code></td><td>workload administration</td><td>4</td><td>4</td><td>26.32</td></tr><tr><td><code>e06-prod</code></td><td>deployment role</td><td>4</td><td>4</td><td>23.61</td></tr><tr><td><code>e01-reset</code></td><td>password reset</td><td>4</td><td>4</td><td>23.35</td></tr><tr><td><code>e02-vendor</code></td><td>delegated support</td><td>4</td><td>4</td><td>14.85</td></tr><tr><td><code>e07-vault</code></td><td>secret read policy</td><td>4</td><td>4</td><td>14.59</td></tr><tr><td><code>e08-direct</code></td><td>maintainer group</td><td>4</td><td>4</td><td>11.88</td></tr><tr><td><code>e05-build</code></td><td>pipeline token</td><td>2</td><td>6</td><td>14.17</td></tr><tr><td><code>e09-cycle</code></td><td>job callback</td><td>2</td><td>6</td><td>2.44</td></tr></tbody>
+  </table></div>
+  <footer>Generated locally by attack-path-review. No network collection or active testing is performed.</footer>
+</main></body></html>

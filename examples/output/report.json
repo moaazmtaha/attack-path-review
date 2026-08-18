@@ -1,0 +1,351 @@
+{
+  "choke_points": [
+    {
+      "coverage": 1.0,
+      "exposure_share": 1.0,
+      "id": "e03-session",
+      "kind": "edge",
+      "path_count": 8
+    },
+    {
+      "coverage": 1.0,
+      "exposure_share": 1.0,
+      "id": "helpdesk",
+      "kind": "node",
+      "path_count": 8
+    },
+    {
+      "coverage": 1.0,
+      "exposure_share": 1.0,
+      "id": "sso",
+      "kind": "node",
+      "path_count": 8
+    },
+    {
+      "coverage": 0.75,
+      "exposure_share": 0.7529,
+      "id": "automation",
+      "kind": "node",
+      "path_count": 6
+    },
+    {
+      "coverage": 0.75,
+      "exposure_share": 0.6819,
+      "id": "build",
+      "kind": "node",
+      "path_count": 6
+    },
+    {
+      "coverage": 0.5,
+      "exposure_share": 0.689,
+      "id": "e04-automation",
+      "kind": "edge",
+      "path_count": 4
+    },
+    {
+      "coverage": 0.5,
+      "exposure_share": 0.6181,
+      "id": "e06-prod",
+      "kind": "edge",
+      "path_count": 4
+    },
+    {
+      "coverage": 0.5,
+      "exposure_share": 0.6113,
+      "id": "e01-reset",
+      "kind": "edge",
+      "path_count": 4
+    },
+    {
+      "coverage": 0.5,
+      "exposure_share": 0.3887,
+      "id": "e02-vendor",
+      "kind": "edge",
+      "path_count": 4
+    },
+    {
+      "coverage": 0.5,
+      "exposure_share": 0.3819,
+      "id": "e07-vault",
+      "kind": "edge",
+      "path_count": 4
+    },
+    {
+      "coverage": 0.5,
+      "exposure_share": 0.311,
+      "id": "e08-direct",
+      "kind": "edge",
+      "path_count": 4
+    },
+    {
+      "coverage": 0.25,
+      "exposure_share": 0.3709,
+      "id": "e05-build",
+      "kind": "edge",
+      "path_count": 2
+    },
+    {
+      "coverage": 0.25,
+      "exposure_share": 0.0639,
+      "id": "e09-cycle",
+      "kind": "edge",
+      "path_count": 2
+    }
+  ],
+  "configuration": {
+    "critical_exposure": 5.0,
+    "max_depth": 8,
+    "max_paths": 200
+  },
+  "generated_at": "2026-08-18T18:37:25.278664+00:00",
+  "minimum_cut_edges": [
+    "e03-session"
+  ],
+  "mitigations": [
+    {
+      "edge_id": "e03-session",
+      "exposure_sum_reduction": 38.2,
+      "max_exposure_reduction": 8.66,
+      "paths_removed": 8,
+      "remaining_paths": 0
+    },
+    {
+      "edge_id": "e04-automation",
+      "exposure_sum_reduction": 26.32,
+      "max_exposure_reduction": 2.89,
+      "paths_removed": 4,
+      "remaining_paths": 4
+    },
+    {
+      "edge_id": "e06-prod",
+      "exposure_sum_reduction": 23.61,
+      "max_exposure_reduction": 1.23,
+      "paths_removed": 4,
+      "remaining_paths": 4
+    },
+    {
+      "edge_id": "e01-reset",
+      "exposure_sum_reduction": 23.35,
+      "max_exposure_reduction": 3.15,
+      "paths_removed": 4,
+      "remaining_paths": 4
+    },
+    {
+      "edge_id": "e02-vendor",
+      "exposure_sum_reduction": 14.85,
+      "max_exposure_reduction": 0.0,
+      "paths_removed": 4,
+      "remaining_paths": 4
+    },
+    {
+      "edge_id": "e07-vault",
+      "exposure_sum_reduction": 14.59,
+      "max_exposure_reduction": 0.0,
+      "paths_removed": 4,
+      "remaining_paths": 4
+    },
+    {
+      "edge_id": "e08-direct",
+      "exposure_sum_reduction": 11.88,
+      "max_exposure_reduction": 0.0,
+      "paths_removed": 4,
+      "remaining_paths": 4
+    },
+    {
+      "edge_id": "e05-build",
+      "exposure_sum_reduction": 14.17,
+      "max_exposure_reduction": 1.23,
+      "paths_removed": 2,
+      "remaining_paths": 6
+    },
+    {
+      "edge_id": "e09-cycle",
+      "exposure_sum_reduction": 2.44,
+      "max_exposure_reduction": 0.0,
+      "paths_removed": 2,
+      "remaining_paths": 6
+    }
+  ],
+  "paths": [
+    {
+      "edges": [
+        "e01-reset",
+        "e03-session",
+        "e04-automation",
+        "e05-build",
+        "e06-prod"
+      ],
+      "effort": 15,
+      "exposure": 8.66,
+      "likelihood": 0.086625,
+      "nodes": [
+        "remote-user",
+        "helpdesk",
+        "sso",
+        "automation",
+        "build",
+        "prod"
+      ],
+      "source": "remote-user",
+      "target": "prod"
+    },
+    {
+      "edges": [
+        "e01-reset",
+        "e03-session",
+        "e04-automation",
+        "e07-vault"
+      ],
+      "effort": 15,
+      "exposure": 7.43,
+      "likelihood": 0.07425,
+      "nodes": [
+        "remote-user",
+        "helpdesk",
+        "sso",
+        "automation",
+        "vault"
+      ],
+      "source": "remote-user",
+      "target": "vault"
+    },
+    {
+      "edges": [
+        "e01-reset",
+        "e03-session",
+        "e08-direct",
+        "e06-prod"
+      ],
+      "effort": 15,
+      "exposure": 5.77,
+      "likelihood": 0.05775,
+      "nodes": [
+        "remote-user",
+        "helpdesk",
+        "sso",
+        "build",
+        "prod"
+      ],
+      "source": "remote-user",
+      "target": "prod"
+    },
+    {
+      "edges": [
+        "e02-vendor",
+        "e03-session",
+        "e04-automation",
+        "e05-build",
+        "e06-prod"
+      ],
+      "effort": 16,
+      "exposure": 5.51,
+      "likelihood": 0.055125,
+      "nodes": [
+        "support-vendor",
+        "helpdesk",
+        "sso",
+        "automation",
+        "build",
+        "prod"
+      ],
+      "source": "support-vendor",
+      "target": "prod"
+    },
+    {
+      "edges": [
+        "e02-vendor",
+        "e03-session",
+        "e04-automation",
+        "e07-vault"
+      ],
+      "effort": 16,
+      "exposure": 4.72,
+      "likelihood": 0.04725,
+      "nodes": [
+        "support-vendor",
+        "helpdesk",
+        "sso",
+        "automation",
+        "vault"
+      ],
+      "source": "support-vendor",
+      "target": "vault"
+    },
+    {
+      "edges": [
+        "e02-vendor",
+        "e03-session",
+        "e08-direct",
+        "e06-prod"
+      ],
+      "effort": 16,
+      "exposure": 3.67,
+      "likelihood": 0.03675,
+      "nodes": [
+        "support-vendor",
+        "helpdesk",
+        "sso",
+        "build",
+        "prod"
+      ],
+      "source": "support-vendor",
+      "target": "prod"
+    },
+    {
+      "edges": [
+        "e01-reset",
+        "e03-session",
+        "e08-direct",
+        "e09-cycle",
+        "e07-vault"
+      ],
+      "effort": 22,
+      "exposure": 1.49,
+      "likelihood": 0.01485,
+      "nodes": [
+        "remote-user",
+        "helpdesk",
+        "sso",
+        "build",
+        "automation",
+        "vault"
+      ],
+      "source": "remote-user",
+      "target": "vault"
+    },
+    {
+      "edges": [
+        "e02-vendor",
+        "e03-session",
+        "e08-direct",
+        "e09-cycle",
+        "e07-vault"
+      ],
+      "effort": 23,
+      "exposure": 0.95,
+      "likelihood": 0.00945,
+      "nodes": [
+        "support-vendor",
+        "helpdesk",
+        "sso",
+        "build",
+        "automation",
+        "vault"
+      ],
+      "source": "support-vendor",
+      "target": "vault"
+    }
+  ],
+  "schema_version": 1,
+  "source": "examples\\hybrid-lab.json",
+  "summary": {
+    "critical_paths": 4,
+    "enabled_edges": 9,
+    "maximum_exposure": 8.66,
+    "minimum_cut_size": 1,
+    "nodes": 8,
+    "path_limit_reached": false,
+    "paths": 8,
+    "title": "Hybrid identity lab"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "title": "Hybrid identity lab",
+  "nodes": [
+    {"id": "remote-user", "label": "Remote user", "kind": "identity", "entry": true, "tags": ["external"]},
+    {"id": "support-vendor", "label": "Support vendor", "kind": "identity", "entry": true, "tags": ["third-party"]},
+    {"id": "helpdesk", "label": "Help desk", "kind": "team", "criticality": 4},
+    {"id": "sso", "label": "SSO tenant", "kind": "identity-provider", "criticality": 7},
+    {"id": "automation", "label": "Automation account", "kind": "service-identity", "criticality": 8},
+    {"id": "build", "label": "Build service", "kind": "ci-cd", "criticality": 8},
+    {"id": "prod", "label": "Production control plane", "kind": "cloud", "criticality": 10, "crown_jewel": true},
+    {"id": "vault", "label": "Secrets vault", "kind": "secrets", "criticality": 10, "crown_jewel": true}
+  ],
+  "edges": [
+    {"id": "e01-reset", "source": "remote-user", "target": "helpdesk", "relationship": "password reset", "likelihood": 0.55, "effort": 3, "controls": ["callback verification"]},
+    {"id": "e02-vendor", "source": "support-vendor", "target": "helpdesk", "relationship": "delegated support", "likelihood": 0.35, "effort": 4, "controls": ["vendor approval"]},
+    {"id": "e03-session", "source": "helpdesk", "target": "sso", "relationship": "session recovery", "likelihood": 0.6, "effort": 3, "controls": ["phishing-resistant MFA"]},
+    {"id": "e04-automation", "source": "sso", "target": "automation", "relationship": "workload administration", "likelihood": 0.5, "effort": 4, "controls": ["privileged access workflow"]},
+    {"id": "e05-build", "source": "automation", "target": "build", "relationship": "pipeline token", "likelihood": 0.75, "effort": 2, "controls": ["short-lived credentials"]},
+    {"id": "e06-prod", "source": "build", "target": "prod", "relationship": "deployment role", "likelihood": 0.7, "effort": 3, "controls": ["environment approval"]},
+    {"id": "e07-vault", "source": "automation", "target": "vault", "relationship": "secret read policy", "likelihood": 0.45, "effort": 5, "controls": ["attribute policy"]},
+    {"id": "e08-direct", "source": "sso", "target": "build", "relationship": "maintainer group", "likelihood": 0.25, "effort": 6, "controls": ["quarterly access review"]},
+    {"id": "e09-cycle", "source": "build", "target": "automation", "relationship": "job callback", "likelihood": 0.4, "effort": 5, "controls": ["signed job identity"]},
+    {"id": "e10-disabled", "source": "support-vendor", "target": "sso", "relationship": "legacy federation", "likelihood": 0.8, "effort": 1, "controls": ["disabled connector"], "enabled": false}
+  ]
+}

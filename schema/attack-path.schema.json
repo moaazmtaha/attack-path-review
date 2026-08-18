@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moaaztaha.com/schema/attack-path-review/v1.json",
+  "title": "Attack Path Review Graph",
+  "type": "object",
+  "required": ["schema_version", "nodes", "edges"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "title": {"type": "string"},
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/node"}
+    },
+    "edges": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/edge"}
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "nonEmptyText": {"type": "string", "minLength": 1},
+    "node": {
+      "type": "object",
+      "required": ["id", "label", "kind"],
+      "properties": {
+        "id": {"$ref": "#/$defs/identifier"},
+        "label": {"$ref": "#/$defs/nonEmptyText"},
+        "kind": {"$ref": "#/$defs/nonEmptyText"},
+        "criticality": {"type": "integer", "minimum": 0, "maximum": 10, "default": 0},
+        "entry": {"type": "boolean", "default": false},
+        "crown_jewel": {"type": "boolean", "default": false},
+        "tags": {"type": "array", "items": {"$ref": "#/$defs/nonEmptyText"}, "default": []}
+      }
+    },
+    "edge": {
+      "type": "object",
+      "required": ["id", "source", "target", "relationship"],
+      "properties": {
+        "id": {"$ref": "#/$defs/identifier"},
+        "source": {"$ref": "#/$defs/identifier"},
+        "target": {"$ref": "#/$defs/identifier"},
+        "relationship": {"$ref": "#/$defs/nonEmptyText"},
+        "likelihood": {"type": "number", "minimum": 0, "maximum": 1, "default": 0.5},
+        "effort": {"type": "integer", "minimum": 1, "maximum": 10, "default": 5},
+        "controls": {"type": "array", "items": {"$ref": "#/$defs/nonEmptyText"}, "default": []},
+        "enabled": {"type": "boolean", "default": true}
+      }
+    }
+  }
+}
